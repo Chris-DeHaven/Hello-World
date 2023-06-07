@@ -6,16 +6,15 @@ def make_File(in_file):
     out_file = open("amz.json", "w")
 
     #json.dump(in_file.split("~"), out_file, indent = 6)
-
+    edi_lines = []
     lines = in_file.split("~")
+    
     for line in lines:
-         json.dump(line.split("*"), out_file)
+        segment = line.split("*")
+        edi_lines.append(segment)
+    
+    json.dump(edi_lines, out_file, indent = 2)
 
-    #lines = in_file.split("~")
-    #for line in lines:
-    #     segments = line.split("*")
-    #     for segment in segments:
-    #         json.dump(segment, out_file, indent = 4)
     out_file.close()
 
 #Start of Code
