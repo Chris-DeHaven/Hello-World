@@ -1,10 +1,10 @@
 from pathlib import Path
 import json
 
-#make_JSON Function
+#make_json Function
 
-def make_JSON(in_file, outputFilePath):
-    with open(outputFilePath / "amz2.json", "w") as out_file:
+def make_json(in_file, output_file_path):
+    with open(output_file_path, "w") as out_file:
         #json.dump("Hello World", out_file)
         
         edi_lines = []
@@ -17,33 +17,14 @@ def make_JSON(in_file, outputFilePath):
         json.dump(edi_lines, out_file, indent=2)
 
 #Start of Code
-p = Path('.')
-l= [x for x in p.iterdir() if x.is_dir()]
+input_folder = Path(__file__).parent / "In"
+output_folder = Path(__file__).parent / "Out"
 
-inputFolder = l[1]
-outputFolder = l[2]
-
-inputFilePath = Path(__file__).parent / inputFolder / "amz.edi"
-outputFilePath = Path(__file__).parent / outputFolder
-
-with inputFilePath.open("r") as fp:
-    in_file = fp.read()
+for input_file_path in input_folder.iterdir():
+    #print(input_file_path.stem)
+    output_file_path = output_folder / (input_file_path.stem + ".json")
 
 
-make_JSON(in_file, outputFilePath)
-
-
-
-
-
-# print("Input folder is: ")
-# print(inputFolder)
-
-# print("Output folder is: ")
-# print(outputFolder)
-
-# print("Input File Path is: ")
-# print(inputFilePath)
-
-# print("Output File Path is: ")
-# print(outputFilePath)
+    with input_file_path.open("r") as fp:
+        in_file = fp.read()
+    make_json(in_file, output_file_path)
